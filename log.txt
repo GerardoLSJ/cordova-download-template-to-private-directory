@@ -1,0 +1,4 @@
+
+"file:///android_asset/",                       source: file:///android_asset/www/js/index.js (48)
+
+"file:///data/user/0/com.cordova.filetest/",    source: file:///android_asset/www/js/index.js (49)
