@@ -50,24 +50,41 @@ var app = {
             var entry = "";
 
                 entry = fileSystem.root;
+                console.log(fileSystem.root.toURL())
+
                 console.log('entry.nativeURL')
                 console.log(entry.nativeURL);
-                gotFileEntry(entry)
-
+               // if(entry.nativeURL == 'undefined'){
+                    console.log('en if')
+                  gotFileEntry(fileSystem.root.toURL())
+             //   }else{
+               // gotFileEntry(entry.nativeURL)
+                //}
         }
-        function gotFileEntry(fileEntry) {
+        function gotFileEntry(entry) {
             // URL in which the pdf is available
-            var documentUrl = "https://d3hu8de7rtp6ki.cloudfront.net/videos/Factor_Lider_Programa_6_V6-SD.mp4";
+            var documentUrl = "https://d3hu8de7rtp6ki.cloudfront.net/widols/november.mp3";
             var uri = encodeURI(documentUrl);
-            fileTransfer.download(uri, fileEntry.nativeURL + "test.mp4",
-                function(entry) {
+            console.log('init download')
+            fileTransfer.download(uri, entry + "test2.mp3",
+                function(successUrl) {
                     console.log('success')
                     console.log('success')
-                    console.log('success')
-                    console.log('success')
+                    console.log(successUrl.toURL() + "test2.mp3")
+
+                    var my_media = new Media(successUrl.toURL())
+                    my_media.play();
+
+
+                    audio.src = entry + "test.mp3";
+                    console.log(audio)
                 },
                 function(error) {
-                    navigator.notification.alert(ajaxErrorMsg);
+                    console.log(error)
+                    var audio =  document.getElementById('audio');
+                    audio.src = entry + "test.mp3";
+                    console.log(audio)
+                    //navigator.notification.alert(ajaxErrorMsg);
                 },
                 false
             );
