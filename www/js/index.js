@@ -21,12 +21,30 @@ var my_media = {};
 function playMedia(){
     console.log('play')
     my_media.play();
+			var notificationData = {
+    track       : 'Time is Running Out',        // optional, default : ''
+      artist      : 'Muse',                     // optional, default : ''
+    cover       : 'albums/absolution.jpg'      // optional, default : nothing
+			};
+			MusicControls.create(notificationData, function(success){
+				console.log('SUCCESS SHOW: '+success);
+			},function(error){
+				console.log('ERROR SHOW: '+error);
+			});
+
+
 }
 
 
 function pauseMedia(){
     console.log('pause')
     my_media.pause();
+
+    MusicControls.destroy(function(success){
+				console.log('SUCCESS SHOW: '+success);
+			},function(error){
+				console.log('ERROR SHOW: '+error);
+			});
 }
 
 var app = {
@@ -50,6 +68,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        /**ready */
 
         /***** */
         var fileTransfer = new FileTransfer();
@@ -94,6 +113,8 @@ var app = {
                         my_media = new Media(successUrl.toURL())
                         //my_media.play();
                         alert('ready')
+
+
                     }
 
                 },
@@ -105,6 +126,7 @@ var app = {
                 false
             );
         };
+
 
         /****** */
 
