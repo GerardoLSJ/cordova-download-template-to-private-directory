@@ -16,6 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var my_media = {};
+
+function playMedia(){
+    console.log('play')
+    my_media.play();
+}
+
+
+function pauseMedia(){
+    console.log('pause')
+    my_media.pause();
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -40,7 +53,7 @@ var app = {
 
         /***** */
         var fileTransfer = new FileTransfer();
-         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onError);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, onError);
 
         function onError(e) {
             navigator.notification.alert("Error : Downloading Failed");
@@ -49,41 +62,44 @@ var app = {
         function onFileSystemSuccess(fileSystem) {
             var entry = "";
 
-                entry = fileSystem.root;
-                console.log(fileSystem.root.toURL())
+            entry = fileSystem.root;
+            console.log(fileSystem.root.toURL())
 
-                console.log('entry.nativeURL')
-                console.log(entry.nativeURL);
-               // if(entry.nativeURL == 'undefined'){
-                    console.log('en if')
-                  gotFileEntry(fileSystem.root.toURL())
-             //   }else{
-               // gotFileEntry(entry.nativeURL)
+            console.log('entry.nativeURL')
+            console.log(entry.nativeURL);
+            // if(entry.nativeURL == 'undefined'){
+            console.log('en if')
+            gotFileEntry(fileSystem.root.toURL())
+                //   }else{
+                // gotFileEntry(entry.nativeURL)
                 //}
         }
+
         function gotFileEntry(entry) {
             // URL in which the pdf is available
-            var documentUrl = "https://d3hu8de7rtp6ki.cloudfront.net/widols/november.mp3";
+            var documentUrl = "https://d3hu8de7rtp6ki.cloudfront.net/widols/november.mp3"; //
             var uri = encodeURI(documentUrl);
             console.log('init download')
-            fileTransfer.download(uri, entry + "test2.mp3",
+            fileTransfer.download(uri, entry + "logs/test1.mp3",
                 function(successUrl) {
                     console.log('success')
                     console.log('success')
-                    console.log(successUrl.toURL() + "test2.mp3")
+                    console.log(successUrl.toURL())
+                    var devicePlatform = device.platform;
+                    if (devicePlatform == 'iOS') {
+                        my_media = new Media('documents://logs/test1.mp3')
+                        alert('ready')
+                        //my_media.play();
+                    }else{
+                        my_media = new Media(successUrl.toURL())
+                        //my_media.play();
+                        alert('ready')
+                    }
 
-                    var my_media = new Media(successUrl.toURL())
-                    my_media.play();
-
-
-                    audio.src = entry + "test.mp3";
-                    console.log(audio)
                 },
                 function(error) {
                     console.log(error)
-                    var audio =  document.getElementById('audio');
-                    audio.src = entry + "test.mp3";
-                    console.log(audio)
+
                     //navigator.notification.alert(ajaxErrorMsg);
                 },
                 false
@@ -103,7 +119,7 @@ var app = {
 
         console.log('Received Event: ' + id);
         console.log(cordova.file.applicationDirectory);
-                console.log('cordova.file.applicationStorageDirectory');
+        console.log('cordova.file.applicationStorageDirectory');
         console.log(cordova.file.applicationStorageDirectory);
         console.log("cordova.file.dataDirectory");
         console.log(cordova.file.dataDirectory);
