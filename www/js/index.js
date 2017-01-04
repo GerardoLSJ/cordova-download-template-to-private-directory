@@ -38,7 +38,6 @@ function events(action) {
 
 
 
-            setTimeout(function() {
                 console.log('DELAYED INIT MUSIC CREATE')
                 MusicControls.create(notificationData, function(success) {
                     console.log('SUCCESS SHOW: ' + success);
@@ -48,7 +47,7 @@ function events(action) {
    MusicControls.updateIsPlaying(false); // toggle the play/pause notification button
 
 
-            }, 0);
+
             // Do something
             break;
         case 'music-controls-play':
@@ -62,7 +61,7 @@ function events(action) {
 
 
 
-            setTimeout(function() {
+
                 console.log('DELAYED INIT MUSIC CREATE')
                 MusicControls.create(notificationData, function(success) {
                     console.log('SUCCESS SHOW: ' + success);
@@ -71,8 +70,6 @@ function events(action) {
                 });
    MusicControls.updateIsPlaying(true); // toggle the play/pause notification button
 
-
-            }, 0);
 
 
             // Do something
