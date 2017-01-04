@@ -19,18 +19,31 @@
 var my_media = {};
 
 function playMedia(){
+    var audio = document.getElementById("myAudio"); 
+audio.play();
     console.log('play')
-    my_media.play();
+
+    //my_media.play();
 			var notificationData = {
     track       : 'Time is Running Out',        // optional, default : ''
       artist      : 'Muse',                     // optional, default : ''
     cover       : 'albums/absolution.jpg'      // optional, default : nothing
 			};
+
+            setTimeout(function(){ 
+                console.log('DELAYED INIT MUSIC CREATE')
+
 			MusicControls.create(notificationData, function(success){
 				console.log('SUCCESS SHOW: '+success);
 			},function(error){
 				console.log('ERROR SHOW: '+error);
 			});
+
+
+            }, 2000);
+
+
+
 
 
 }
@@ -106,13 +119,13 @@ var app = {
                     console.log(successUrl.toURL())
                     var devicePlatform = device.platform;
                     if (devicePlatform == 'iOS') {
-                        my_media = new Media('documents://logs/test1.mp3')
-                        alert('ready')
+                       // my_media = new Media('documents://logs/test1.mp3')
+                       // alert('ready')
                         //my_media.play();
                     }else{
-                        my_media = new Media(successUrl.toURL())
+                       // my_media = new Media(successUrl.toURL())
                         //my_media.play();
-                        alert('ready')
+                       // alert('ready')
 
 
                     }
