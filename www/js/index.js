@@ -17,11 +17,13 @@
  * under the License.
  */
 var my_media = {};
+ var audio = document.getElementById("myAudio"); 
 
 function playMedia(){
-    var audio = document.getElementById("myAudio"); 
+   
 audio.play();
     console.log('play')
+    console.log(audio.src)
 
     //my_media.play();
 			var notificationData = {
@@ -30,17 +32,19 @@ audio.play();
     cover       : 'albums/absolution.jpg'      // optional, default : nothing
 			};
 
+
+
             setTimeout(function(){ 
                 console.log('DELAYED INIT MUSIC CREATE')
-
-			MusicControls.create(notificationData, function(success){
+            			MusicControls.create(notificationData, function(success){
 				console.log('SUCCESS SHOW: '+success);
 			},function(error){
 				console.log('ERROR SHOW: '+error);
 			});
 
 
-            }, 2000);
+
+            }, 800);
 
 
 
@@ -51,7 +55,8 @@ audio.play();
 
 function pauseMedia(){
     console.log('pause')
-    my_media.pause();
+    audio.pause();
+    //my_media.pause();
 
     MusicControls.destroy(function(success){
 				console.log('SUCCESS SHOW: '+success);
@@ -120,12 +125,14 @@ var app = {
                     var devicePlatform = device.platform;
                     if (devicePlatform == 'iOS') {
                        // my_media = new Media('documents://logs/test1.mp3')
-                       // alert('ready')
+                       audio.src = successUrl.toURL();
+                        alert('ready')
                         //my_media.play();
                     }else{
+                        audio.src = successUrl.toURL();
                        // my_media = new Media(successUrl.toURL())
                         //my_media.play();
-                       // alert('ready')
+                        alert('ready')
 
 
                     }
