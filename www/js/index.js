@@ -15,36 +15,135 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
+ 
  */
-var my_media = {};
- var audio = document.getElementById("myAudio"); 
 
-function playMedia(){
-   
-audio.play();
+function events(action) {
+    switch (action) {
+        case 'music-controls-next':
+            // Do something
+            break;
+        case 'music-controls-previous':
+            // Do something
+            break;
+        case 'music-controls-pause':
+            audio.pause();
+
+            
+                        var notificationData = {
+                track: 'Time is Running Out', // optional, default : ''
+                artist: 'Muse', // optional, default : ''
+                cover: 'albums/absolution.jpg' // optional, default : nothing
+            };
+
+
+
+            setTimeout(function() {
+                console.log('DELAYED INIT MUSIC CREATE')
+                MusicControls.create(notificationData, function(success) {
+                    console.log('SUCCESS SHOW: ' + success);
+                }, function(error) {
+                    console.log('ERROR SHOW: ' + error);
+                });
+   MusicControls.updateIsPlaying(false); // toggle the play/pause notification button
+
+
+            }, 0);
+            // Do something
+            break;
+        case 'music-controls-play':
+
+            audio.play();
+            var notificationData = {
+                track: 'Time is Running Out', // optional, default : ''
+                artist: 'Muse', // optional, default : ''
+                cover: 'albums/absolution.jpg' // optional, default : nothing
+            };
+
+
+
+            setTimeout(function() {
+                console.log('DELAYED INIT MUSIC CREATE')
+                MusicControls.create(notificationData, function(success) {
+                    console.log('SUCCESS SHOW: ' + success);
+                }, function(error) {
+                    console.log('ERROR SHOW: ' + error);
+                });
+   MusicControls.updateIsPlaying(true); // toggle the play/pause notification button
+
+
+            }, 0);
+
+
+            // Do something
+            break;
+        case 'music-controls-destroy':
+            // Do something
+            break;
+
+            // External controls (iOS only)
+        case 'music-controls-toggle-play-pause':
+            // Do something
+            break;
+
+            // Headset events (Android only)
+        case 'music-controls-media-button':
+            // Do something
+            break;
+        case 'music-controls-headset-unplugged':
+            // Do something
+            break;
+        case 'music-controls-headset-plugged':
+            // Do something
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+var my_media = {};
+var audio = document.getElementById("myAudio");
+
+
+
+
+function playMedia() {
+    // Register callback
+    MusicControls.subscribe(events);
+
+    // Start listening for events
+    // The plugin will run the events function each time an event is fired
+    MusicControls.listen();
+ 
+
+    audio.play();
     console.log('play')
     console.log(audio.src)
 
-    //my_media.play();
-			var notificationData = {
-    track       : 'Time is Running Out',        // optional, default : ''
-      artist      : 'Muse',                     // optional, default : ''
-    cover       : 'albums/absolution.jpg'      // optional, default : nothing
-			};
+
+            var notificationData = {
+                track: 'asdasdasdas', // optional, default : ''
+                artist: 'asdasdasd',
+                  isPlaying   : false,
+            };
 
 
 
-            setTimeout(function(){ 
+            setTimeout(function() {
                 console.log('DELAYED INIT MUSIC CREATE')
-            			MusicControls.create(notificationData, function(success){
-				console.log('SUCCESS SHOW: '+success);
-			},function(error){
-				console.log('ERROR SHOW: '+error);
-			});
+                MusicControls.create(notificationData, function(success) {
+                    console.log('SUCCESS SHOW: ' + success);
+                }, function(error) {
+                    console.log('ERROR SHOW: ' + error);
+                });
 
 
 
             }, 800);
+    //my_media.play();
+
 
 
 
@@ -53,16 +152,16 @@ audio.play();
 }
 
 
-function pauseMedia(){
+function pauseMedia() {
     console.log('pause')
     audio.pause();
     //my_media.pause();
 
-    MusicControls.destroy(function(success){
-				console.log('SUCCESS SHOW: '+success);
-			},function(error){
-				console.log('ERROR SHOW: '+error);
-			});
+    MusicControls.destroy(function(success) {
+        console.log('SUCCESS SHOW: ' + success);
+    }, function(error) {
+        console.log('ERROR SHOW: ' + error);
+    });
 }
 
 var app = {
@@ -124,13 +223,13 @@ var app = {
                     console.log(successUrl.toURL())
                     var devicePlatform = device.platform;
                     if (devicePlatform == 'iOS') {
-                       // my_media = new Media('documents://logs/test1.mp3')
-                       audio.src = successUrl.toURL();
-                        alert('ready')
-                        //my_media.play();
-                    }else{
+                        // my_media = new Media('documents://logs/test1.mp3')
                         audio.src = successUrl.toURL();
-                       // my_media = new Media(successUrl.toURL())
+                        alert('ready')
+                            //my_media.play();
+                    } else {
+                        audio.src = successUrl.toURL();
+                        // my_media = new Media(successUrl.toURL())
                         //my_media.play();
                         alert('ready')
 
